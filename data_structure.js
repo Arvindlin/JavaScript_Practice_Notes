@@ -1,0 +1,138 @@
+// football betting service
+// Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
+// 1. Create one player array for each team (variables 'players1' and 'players2')
+// 2. The first player in any player array is the goalkeeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+// 3. Create an array 'allPlayers' containing all players of both teams (22 players)
+// 4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+// 5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+// 6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+// 7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
+const game = {
+    team1: 'Bayern Munich',
+    team2: 'Borrussia Dortmund',
+    players: [
+      [
+        'Neuer',
+        'Pavard',
+        'Martinez',
+        'Alaba',
+        'Davies',
+        'Kimmich',
+        'Goretzka',
+        'Coman',
+        'Muller',
+        'Gnarby',
+        'Lewandowski',
+      ],
+      [
+        'Burki',
+        'Schulz',
+        'Hummels',
+        'Akanji',
+        'Hakimi',
+        'Weigl',
+        'Witsel',
+        'Hazard',
+        'Brandt',
+        'Sancho',
+        'Gotze',
+      ],
+    ],
+    score: '4:0',
+    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+    date: 'Nov 9th, 2037',
+    odds: {
+      team1: 1.33,
+      x: 3.25,
+      team2: 6.5,
+    },
+  };
+
+//   1.
+const [players1, player2] = game.players;
+console.log(players1, player2)
+
+//   2.
+const [gk, ...otherPlayers] = players1;
+console.log(gk, otherPlayers)
+
+// 3.
+const allPlayers = [...players1, ...player2]
+console.log(allPlayers)
+
+// 4.
+const playes1Final = [...players1, 'Thiago', 'Countino', 'Periscic']
+
+
+// 5. Based on the game.odds object, create one variable for each odd 
+// (called 'team1', 'draw' and 'team2')
+const {odds: {team1, x: draw, team2}} = game;
+console.log(team1, draw, team2);
+
+// 6. Write a function ('printGoals') that receives an arbitrary number of player names
+//  (NOT an array) and prints each of them to the console, 
+//  along with the number of goals that were scored in total (number of player names passed in)
+
+const printGoals = function(...players){
+    console.log(`${players.length} goals were scored.`)  //Use of rest patterns...
+}
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+printGoals('Davies', 'Muller');
+printGoals(...game.scored);
+
+// 7. The team with the lower odd is more likely to win. Print to the console which 
+// team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
+
+//if both are true last value will get printed in operator short circuiting..
+
+team1 < team2 && console.log('Team1 is more likely to winn'); 
+team2 < team1 && console.log('Team2 is more likely to winn');
+
+const restaurant = {
+    name: 'Classico Italiano',
+    location: 'Via Angelo Tavanti 23, Firenze, Italy',
+    categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+    starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+    mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  
+    // ES6 enhanced object literals
+    // openingHours,
+  
+    order(starterIndex, mainIndex) {
+      return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+    },
+  
+    orderDelivery({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
+      console.log(
+        `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+      );
+    },
+  
+    orderPasta(ing1, ing2, ing3) {
+      console.log(
+        `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
+      );
+    },
+  
+    orderPizza(mainIngredient, ...otherIngredients) {
+      console.log(mainIngredient);
+      console.log(otherIngredients);
+    },
+  };
+
+  const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+
+//   console.log(menu)
+
+for (const item of menu) console.log(item);
+
+for (const item of menu.entries()){
+    // console.log(item);
+    console.log(`${item[0]+1}: ${item[1]}`)
+} 
+
+for (const [i,element] of menu.entries()){
+    // console.log(item);
+    console.log(`${i+1}: ${element}`)
+} 
+// console.log([...menu.entries()]);
